@@ -1,5 +1,6 @@
 Q1
 
+
 MariaDB [db_lesson]> create table departments (
     -> department_id INT unsigned auto_increment not null primary key,
     -> name varchar(20) not null,
@@ -32,6 +33,7 @@ MariaDB [db_lesson]> desc departments
 4 rows in set (0.038 sec)
 
 
+
 Q2
 
 MariaDB [db_lesson]> alter table people add department_id int unsigned after email;
@@ -56,6 +58,7 @@ MariaDB [db_lesson]> desc people
 
 
 Q3
+
 
 MariaDB [db_lesson]> insert into departments (name)
     -> values
@@ -162,7 +165,9 @@ MariaDB [db_lesson]> select * from reports;
 22 rows in set (0.001 sec)
 
 
+
 Q4
+
 
 MariaDB [db_lesson]> UPDATE people SET department_id = 2 WHERE person_id = 1;
 Query OK, 1 row affected (0.012 sec)
@@ -229,7 +234,9 @@ MariaDB [db_lesson]> select * from people;
 15 rows in set (0.001 sec)
 
 
+
 Q5
+
 
 MariaDB [db_lesson]> select name,age from people where gender=1 order by age desc;
 +----------------+------+
@@ -247,34 +254,35 @@ MariaDB [db_lesson]> select name,age from people where gender=1 order by age des
 8 rows in set (0.001 sec)
 
 
+
 Q6
 
-`people` のテーブルから、営業部に所属している人の情報【名前、メールアドレス、年齢】をテーブルへの追加順(作成順)に並べ替えて表示してください。
+
+`people` のテーブルから、営業部に所属している人の情報【名前/メールアドレス/年齢】をテーブルへの追加順(作成順)に並べ替えて表示してください。
+
 
 
 Q7
 
-MariaDB [db_lesson]> select name from people where gender=2 && 20<=age && age<=29;
-+------------+
-| name       |
-+------------+
-| 田中ゆうこ |
-| 甲斐はつめ |
-| 大川まゆみ |
-| 柿沼かおる |
-+------------+
-4 rows in set (0.002 sec)
 
-MariaDB [db_lesson]> select name from people where gender=1 && 40<=age && age<=49;
-+--------------+
-| name         |
-+--------------+
-| 福田だいすけ |
-+--------------+
-1 row in set (0.001 sec)
+MariaDB [db_lesson]> SELECT gender , name , age FROM people
+    -> WHERE gender=1 AND 40<=age AND age<=49
+    -> OR gender=2 AND 20<=age AND age<=29
+    -> ORDER BY gender ASC , age ASC;
++--------+--------------+------+
+| gender | name         | age  |
++--------+--------------+------+
+|      1 | 福田だいすけ |   42 |
+|      2 | 大川まゆみ   |   22 |
+|      2 | 田中ゆうこ   |   25 |
+|      2 | 甲斐はつめ   |   26 |
+|      2 | 柿沼かおる   |   27 |
++--------+--------------+------+
+5 rows in set (0.001 sec)
 
 
 Q8
+
 
 MariaDB [db_lesson]> select * from people where department_id = 1 order by age asc;
 +-----------+----------------+---------------------------+---------------+------+--------+---------------------+---------------------+
@@ -288,7 +296,9 @@ MariaDB [db_lesson]> select * from people where department_id = 1 order by age a
 4 rows in set (0.002 sec)
 
 
+
 Q9
+
 
 MariaDB [db_lesson]> SELECT department_id, AVG(age) AS average_age
     -> FROM people
@@ -304,7 +314,9 @@ MariaDB [db_lesson]> SELECT department_id, AVG(age) AS average_age
 department_idが2であるところが、開発部に所属する女性の平均年齢になります。
 
 
+
 Q10
+
 
 MariaDB [db_lesson]> select people.name,people.department_id,reports.content
     -> from people inner join reports on people.person_id = reports.person_id;
@@ -336,7 +348,9 @@ MariaDB [db_lesson]> select people.name,people.department_id,reports.content
 21 rows in set (0.001 sec)
 
 
+
 Q11
+
 
 SELECT p.person_id, p.name, r.content FROM people p LEFT OUTER JOIN reports r USING (person_id) where content is null;
 +-----------+----------------+---------+
