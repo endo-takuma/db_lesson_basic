@@ -265,24 +265,17 @@ Q6
 Q7
 
 
-MariaDB [db_lesson]> select name from people where gender=2 && 20<=age && age<=29;
-+------------+
-| name       |
-+------------+
-| 田中ゆうこ |
-| 甲斐はつめ |
-| 大川まゆみ |
-| 柿沼かおる |
-+------------+
-4 rows in set (0.002 sec)
-
-MariaDB [db_lesson]> select name from people where gender=1 && 40<=age && age<=49;
+MariaDB [db_lesson]>  select name from people WHERE gender=2 AND 20<=age AND age<=29 OR gender=1 AND 40<=age AND age<=49;
 +--------------+
 | name         |
 +--------------+
+| 田中ゆうこ   |
 | 福田だいすけ |
+| 甲斐はつめ   |
+| 大川まゆみ   |
+| 柿沼かおる   |
 +--------------+
-1 row in set (0.001 sec)
+5 rows in set (0.002 sec)
 
 
 
